@@ -49,8 +49,10 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard.Filters
                 throw new ArgumentNullException("Pre-selected VMs are null");
             this.preSelectedVMs = preSelectedVMs;
         }
-
-        public override bool FailureFound
+	    public override void StartFetchFailure(IXenObject xenObject)
+	    {
+	    }
+		public override bool FailureFound
         {
             get
             {

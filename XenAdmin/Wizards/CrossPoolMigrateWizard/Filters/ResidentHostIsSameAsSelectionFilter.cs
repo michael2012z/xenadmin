@@ -49,7 +49,11 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard.Filters
             this.preSelectedVMs = preSelectedVMs;
         }
 
-        public override bool FailureFound
+	    public override void StartFetchFailure(IXenObject xenObject)
+	    {
+	    }
+
+	    public override bool FailureFound
         {
             get
             {

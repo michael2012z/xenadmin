@@ -120,7 +120,9 @@ namespace XenAdmin.Wizards.GenericPages
         {
             string threadFailureReason = Messages.DELAY_LOADED_COMBO_BOX_ITEM_FAILURE_UNKOWN;
 
-            do
+	        StartFetchFailureReason();
+
+			do
             {
                 try
                 {
@@ -136,7 +138,7 @@ namespace XenAdmin.Wizards.GenericPages
                     }
                     Thread.Sleep(timeOut);
                 }
-            } while (retries-- > 0);
+            } while ((threadFailureReason == "X") || (retries-- > 0));
 
             FailureReason = threadFailureReason;
         }
@@ -184,13 +186,21 @@ namespace XenAdmin.Wizards.GenericPages
             return String.Format(Messages.DELAY_LOADED_COMBO_BOX_ITEM_FAILURE_REASON, Item.Name(), FailureReason);
         }
 
-        /// <summary>
-        /// Fetch the reason from somewhere that may take some time
-        /// Called in a separate thread by the constructor
-        /// Returning String.Empty or null will mean no failure has been found
-        /// </summary>
-        /// <returns></returns>
-        protected virtual string FetchFailureReason()
+	    private void StartFetchFailureReason()
+	    {
+			foreach (ReasoningFilter filter in _filters)
+			{
+				filter.StartFetchFailure(Item);
+			}
+		}
+
+		/// <summary>
+		/// Fetch the reason from somewhere that may take some time
+		/// Called in a separate thread by the constructor
+		/// Returning String.Empty or null will mean no failure has been found
+		/// </summary>
+		/// <returns></returns>
+		protected virtual string FetchFailureReason()
         {
             foreach (ReasoningFilter filter in _filters)
             {

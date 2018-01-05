@@ -32,7 +32,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Windows.Forms.VisualStyles;
+using XenAdmin.Actions;
 using XenAdmin.Core;
 using XenAdmin.Wizards.GenericPages;
 using XenAPI;
@@ -45,8 +48,9 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard.Filters
         private readonly WizardMode _wizardMode;
         private string disableReason = string.Empty;
         private readonly List<VM> preSelectedVMs;
+	    private List<string> excludedHosts = new List<string>();
 
-        public CrossPoolMigrateCanMigrateFilter(IXenObject itemAddedToComboBox, List<VM> preSelectedVMs, WizardMode wizardMode)
+		public CrossPoolMigrateCanMigrateFilter(IXenObject itemAddedToComboBox, List<VM> preSelectedVMs, WizardMode wizardMode)
             : base(itemAddedToComboBox)
         {
             _wizardMode = wizardMode;
@@ -56,70 +60,95 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard.Filters
             this.preSelectedVMs = preSelectedVMs;
         }
 
-        public override bool FailureFound
+	    private int pendingActions = 0;
+	    void action_Completed(ActionBase sender)
+	    {
+		    AssertCanMigrateAction a = (AssertCanMigrateAction) sender;
+
+		    if (disableReason == string.Empty)
+			    disableReason = a.disableReason;
+
+		    if (a.failure != null)
+		    {
+			    Failure failure = a.failure;
+				if (failure.ErrorDescription.Count > 0 && failure.ErrorDescription[0] == Failure.RBAC_PERMISSION_DENIED)
+				    disableReason = failure.Message.Split('\n')[0].TrimEnd('\r'); // we want the first line only
+			    else
+				    disableReason = failure.Message;
+
+			    log.ErrorFormat("VM: {0}, Host: {1} - Reason: {2};", a.vm.opaque_ref, a.host.opaque_ref, failure.Message);
+
+			    if (!excludedHosts.Contains(a.host.opaque_ref))
+				    excludedHosts.Add(a.host.opaque_ref);
+			}
+
+		    pendingActions -= 1;
+			if (pendingActions == 0)
+				log.InfoFormat("Michael FFFFFFFFFFFFFFFF Asserting can migrate to {0}...", ItemToFilterOn);
+
+			if ((pendingActions == 0) && (disableReason == "X"))
+		    {
+			    disableReason = string.Empty;
+		    }
+	    }
+
+	    void parallelAction_Completed(ActionBase sender)
+	    {
+			log.InfoFormat("Michael XXXXXXXXXXXXXXXXXXXX Asserting can migrate to {0}...", ItemToFilterOn);
+		}
+
+
+		public override void StartFetchFailure(IXenObject xenObject)
+	    {
+		    log.InfoFormat("Michael MMMMMMMMMMMMMMMMMMM Asserting can migrate to {0}...", ItemToFilterOn);
+			Pool targetPool;
+		    List<Host> targets = CollateHosts(out targetPool);
+		    
+		    var actions = new List<AsyncAction>();
+
+		    foreach (Host host in targets)
+		    {
+			    var targetSrs = host.Connection.Cache.SRs.Where(sr => sr.SupportsVdiCreate()).ToList();
+			    var targetNetwork = GetANetwork(host);
+
+			    foreach (VM vm in preSelectedVMs)
+			    {
+				    //CA-220218: for intra-pool motion of halted VMs we do a move, so no need to assert we can migrate
+				    Pool vmPool = Helpers.GetPoolOfOne(vm.Connection);
+				    if (_wizardMode == WizardMode.Move && vmPool != null && targetPool != null && vmPool.opaque_ref == targetPool.opaque_ref)
+					    continue;
+
+				    //Skip the resident host as there's a filter for it and 
+				    //if not then you could exclude intrapool migration
+				    //CA-205799: do not offer the host the VM is currently on
+				    Host homeHost = vm.Home();
+				    if (homeHost != null && homeHost.opaque_ref == host.opaque_ref)
+				    {
+					    if (!excludedHosts.Contains(host.opaque_ref))
+						    excludedHosts.Add(host.opaque_ref);
+					    continue;
+				    }
+
+					var a = new AssertCanMigrateAction(vm, targetSrs, host, targetNetwork);
+				    a.Completed += action_Completed;
+				    actions.Add(a);
+				    pendingActions += 1;
+			    }
+		    }
+		    if (actions.Any())
+		    {
+			    disableReason = "X";
+			    ParallelAction p = new ParallelAction("", "", "", actions);
+			    p.Completed += parallelAction_Completed;
+				p.RunAsync();
+		    }
+		}
+
+		public override bool FailureFound
         {
             get
             {
-                log.InfoFormat("Asserting can migrate to {0}...", ItemToFilterOn);
-
-                Pool targetPool;
-                List<Host> targets = CollateHosts(out targetPool);
-                var excludedHosts = new List<string>();
-
-                foreach (Host host in targets)
-                {
-                    var targetSrs = host.Connection.Cache.SRs.Where(sr => sr.SupportsVdiCreate()).ToList();
-                    var targetNetwork = GetANetwork(host);
-
-                    foreach (VM vm in preSelectedVMs)
-                    {
-                        try
-                        {
-                            //CA-220218: for intra-pool motion of halted VMs we do a move, so no need to assert we can migrate
-                            Pool vmPool = Helpers.GetPoolOfOne(vm.Connection);
-                            if (_wizardMode == WizardMode.Move && vmPool != null && targetPool != null && vmPool.opaque_ref == targetPool.opaque_ref)
-                                continue;
-                            
-                            //Skip the resident host as there's a filter for it and 
-                            //if not then you could exclude intrapool migration
-                            //CA-205799: do not offer the host the VM is currently on
-                            Host homeHost = vm.Home();
-                            if (homeHost != null && homeHost.opaque_ref == host.opaque_ref)
-                            {
-                                if (!excludedHosts.Contains(host.opaque_ref))
-                                    excludedHosts.Add(host.opaque_ref);
-                                continue;
-                            }
-
-                            PIF managementPif = host.Connection.Cache.PIFs.First(p => p.management);
-                            XenAPI.Network network = host.Connection.Cache.Resolve(managementPif.network);
-
-                            Session session = host.Connection.DuplicateSession();
-                            Dictionary<string, string> receiveMapping = Host.migrate_receive(session, host.opaque_ref, network.opaque_ref, new Dictionary<string, string>());
-                            VM.assert_can_migrate(vm.Connection.Session,
-                                                  vm.opaque_ref,
-                                                  receiveMapping,
-                                                  true,
-                                                  GetVdiMap(vm, targetSrs),
-                                                  vm.Connection == host.Connection ? new Dictionary<XenRef<VIF>, XenRef<XenAPI.Network>>() : GetVifMap(vm, targetNetwork),
-                                                  new Dictionary<string, string>());
-                        }
-                        catch (Failure failure)
-                        {
-                            if (failure.ErrorDescription.Count > 0 && failure.ErrorDescription[0] == Failure.RBAC_PERMISSION_DENIED)
-                                disableReason = failure.Message.Split('\n')[0].TrimEnd('\r'); // we want the first line only
-                            else
-                                disableReason = failure.Message;
-
-                            log.ErrorFormat("VM: {0}, Host: {1} - Reason: {2};", vm.opaque_ref, host.opaque_ref, failure.Message);
-
-                            if (!excludedHosts.Contains(host.opaque_ref))
-                                excludedHosts.Add(host.opaque_ref);
-                        }
-                    }
-                }
-
-                return excludedHosts.Count == targets.Count;
+	            return (disableReason != string.Empty);
             }
         }
 

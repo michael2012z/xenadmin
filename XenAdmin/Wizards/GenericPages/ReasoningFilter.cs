@@ -50,8 +50,8 @@ namespace XenAdmin.Wizards.GenericPages
         protected IXenObject ItemToFilterOn { get; set; }
         public abstract bool FailureFound { get; }
         public abstract string Reason { get; }
-
-        public bool FailureFoundFor(IXenObject xenObject)
+	    public abstract void StartFetchFailure(IXenObject xenObject);
+		public bool FailureFoundFor(IXenObject xenObject)
         {
             ItemToFilterOn = xenObject;
             return FailureFound;
