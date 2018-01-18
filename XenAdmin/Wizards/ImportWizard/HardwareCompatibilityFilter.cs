@@ -60,8 +60,12 @@ namespace XenAdmin.Wizards.ImportWizard.Filters
                     _creamOrNewerHosts.AddRange(pool.Connection.Cache.Hosts);
             }
         }
-    
-        public override bool FailureFound
+
+		public override void cancelFilter()
+		{
+		}
+
+		public override bool FailureFound
         {
             get
             {

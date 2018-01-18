@@ -1045,9 +1045,9 @@ namespace XenAPI
                 os_name = os_name.Substring(0, index);
 
             // CA-9631: conform to MS trademark guidelines
-            if (os_name.StartsWith("Microsoft®"))
+            if (os_name.StartsWith("Microsoft"))
             {
-                if (os_name != "Microsoft®")
+                if (os_name != "Microsoft")
                     os_name = os_name.Substring(10).Trim();
             }
             else if (os_name.StartsWith("Microsoft"))

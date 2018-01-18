@@ -65,7 +65,12 @@ namespace XenAdmin.Wizards.GenericPages
             _filters = filters;
         }
 
-        public void CopyFrom(DelayLoadingOptionComboBoxItem toCopy)
+	    public void cancelFilters()
+	    {
+		    foreach (ReasoningFilter filter in _filters)
+				filter.cancelFilter();
+	    }
+		public void CopyFrom(DelayLoadingOptionComboBoxItem toCopy)
         {
             xenObject = toCopy.xenObject;
             failureReason = toCopy.FailureReason;

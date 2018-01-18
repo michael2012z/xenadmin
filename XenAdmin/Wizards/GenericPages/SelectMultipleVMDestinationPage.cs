@@ -88,6 +88,7 @@ namespace XenAdmin.Wizards.GenericPages
 
         public override void PageCancelled()
         {
+			test();
             Program.Invoke(Program.MainWindow, ClearComboBox);
             Program.Invoke(Program.MainWindow, ClearDataGridView);
             ChosenItem = null;
@@ -251,6 +252,25 @@ namespace XenAdmin.Wizards.GenericPages
             m_comboBoxConnection.Items.Clear();
         }
 
+		private void test()
+		{
+			foreach (DataGridViewRow row in m_dataGridView.Rows)
+			{
+					DataGridViewEnableableComboBoxCell cbCell = row.Cells[m_colTarget.Index] as DataGridViewEnableableComboBoxCell;
+					if (cbCell == null)
+						return;
+
+					List<IEnableableXenObjectComboBoxItem> list =
+						cbCell.Items.OfType<IEnableableXenObjectComboBoxItem>().ToList();
+					foreach (IEnableableXenObjectComboBoxItem cbi in list)
+					{
+						DelayLoadingOptionComboBoxItem it = cbi as DelayLoadingOptionComboBoxItem;
+						if (it != null)
+							it.cancelFilters();
+					}
+			}
+		}
+
         private void ClearDataGridView()
         {
             //Clear up comboboxes
@@ -404,7 +424,9 @@ namespace XenAdmin.Wizards.GenericPages
                         foreach (var host in Connection.Cache.Hosts)
                         {
                             var item = new DelayLoadingOptionComboBoxItem(host, homeserverFilters);
-                            item.LoadAndWait();
+							//item.LoadAndWait();
+	                        item.ReasonUpdated += DelayLoadedComboBoxItemX_ReasonChanged;
+							item.Load();
                             cb.Items.Add(item);
 
                             if ((m_selectedObject != null && m_selectedObject.opaque_ref == host.opaque_ref) ||
@@ -518,6 +540,56 @@ namespace XenAdmin.Wizards.GenericPages
                                                         });
             }
         }
+
+		private void DelayLoadedComboBoxItemX_ReasonChanged(object sender, EventArgs e)
+		{
+			if (m_dataGridView.EditingControl != null && m_dataGridView.EditingControl is ComboBox)
+			{
+				ComboBox editingControl = m_dataGridView.EditingControl as ComboBox;
+				DelayLoadingOptionComboBoxItem item = sender as DelayLoadingOptionComboBoxItem;
+				if (item == null)
+					throw new NullReferenceException("Trying to update delay loaded reason but failed to extract reason");
+
+				int index = editingControl.Items.IndexOf(item);
+				if (index > -1)
+				{
+					Program.Invoke(Program.MainWindow, delegate ()
+					{
+						int selectedIndex = editingControl.SelectedIndex;
+
+
+						if (index > editingControl.Items.Count)
+							return;
+
+						if (updatingDestinationCombobox || updatingHomeServerList)
+							return;
+
+						DelayLoadingOptionComboBoxItem tempItem =
+							editingControl.Items[index] as DelayLoadingOptionComboBoxItem;
+						if (tempItem == null)
+							throw new NullReferenceException("Trying to update delay loaded reason but failed to extract reason");
+						tempItem.CopyFrom(item);
+						editingControl.BeginUpdate();
+						editingControl.Items.RemoveAt(index);
+
+						if (updatingDestinationCombobox || updatingHomeServerList)
+						{
+							editingControl.EndUpdate();
+							return;
+						}
+
+						editingControl.Items.Insert(index, tempItem);
+						editingControl.SelectedIndex = selectedIndex;
+						editingControl.EndUpdate();
+
+						if (tempItem.PreferAsSelectedItem)
+							editingControl.SelectedItem = tempItem;
+
+						item.ReasonUpdated -= DelayLoadedComboBoxItemX_ReasonChanged;
+					});
+				}
+			}
+		}
 
 		private void PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
