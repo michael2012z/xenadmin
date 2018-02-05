@@ -56,5 +56,7 @@ namespace XenAdmin.Wizards.GenericPages
             ItemToFilterOn = xenObject;
             return FailureFound;
         }
+
+        public abstract void cancelFilter();
     } 
 }

@@ -30,6 +30,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,15 +46,22 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard.Filters
         private readonly WizardMode _wizardMode;
         private string disableReason = string.Empty;
         private readonly List<VM> preSelectedVMs;
+        private IDictionary<string, IDictionary<string, string>> cache;
 
-        public CrossPoolMigrateCanMigrateFilter(IXenObject itemAddedToComboBox, List<VM> preSelectedVMs, WizardMode wizardMode)
+        public CrossPoolMigrateCanMigrateFilter(IXenObject itemAddedToComboBox, List<VM> preSelectedVMs, WizardMode wizardMode, IDictionary<string, IDictionary<string, string>> cache = null)
             : base(itemAddedToComboBox)
         {
             _wizardMode = wizardMode;
+            this.cache = (cache != null) ? cache : new Dictionary<string, IDictionary<string, string>>();
 
             if (preSelectedVMs == null)
                 throw new ArgumentNullException("Pre-selected VMs are null");
             this.preSelectedVMs = preSelectedVMs;
+        }
+
+        public override void cancelFilter()
+        {
+            log.InfoFormat("Cancelling filter on {0}...", ItemToFilterOn);
         }
 
         public override bool FailureFound
@@ -73,6 +81,12 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard.Filters
 
                     foreach (VM vm in preSelectedVMs)
                     {
+                        if (!cache.ContainsKey(host.opaque_ref))
+                        {
+                            cache.Add(host.opaque_ref, new Dictionary<string, string>());
+                        }
+                        IDictionary<string, string> vmCache = cache[host.opaque_ref];
+	                    
                         try
                         {
                             //CA-220218: for intra-pool motion of halted VMs we do a move, so no need to assert we can migrate
@@ -91,6 +105,12 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard.Filters
                                 continue;
                             }
 
+                            if (vmCache.ContainsKey(vm.opaque_ref))
+                            {
+                                disableReason = vmCache[vm.opaque_ref];
+                                continue;
+                            }
+
                             PIF managementPif = host.Connection.Cache.PIFs.First(p => p.management);
                             XenAPI.Network network = host.Connection.Cache.Resolve(managementPif.network);
 
@@ -103,6 +123,7 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard.Filters
                                                   GetVdiMap(vm, targetSrs),
                                                   vm.Connection == host.Connection ? new Dictionary<XenRef<VIF>, XenRef<XenAPI.Network>>() : GetVifMap(vm, targetNetwork),
                                                   new Dictionary<string, string>());
+                            vmCache.Add(vm.opaque_ref, string.Empty);
                         }
                         catch (Failure failure)
                         {
@@ -111,6 +132,7 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard.Filters
                             else
                                 disableReason = failure.Message;
 
+                            vmCache.Add(vm.opaque_ref, disableReason.Clone().ToString());
                             log.ErrorFormat("VM: {0}, Host: {1} - Reason: {2};", vm.opaque_ref, host.opaque_ref, failure.Message);
 
                             if (!excludedHosts.Contains(host.opaque_ref))

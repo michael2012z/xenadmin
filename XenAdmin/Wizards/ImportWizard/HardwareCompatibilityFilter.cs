@@ -91,5 +91,9 @@ namespace XenAdmin.Wizards.ImportWizard.Filters
         {
 	        get { return Messages.CPM_FAILURE_REASON_HARDWARE_PLATFORM; }
         }
-    }
+
+        public override void cancelFilter()
+        {
+        }
+	}
 }

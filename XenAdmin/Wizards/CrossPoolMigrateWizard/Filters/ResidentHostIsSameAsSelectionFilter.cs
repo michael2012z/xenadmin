@@ -49,6 +49,10 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard.Filters
             this.preSelectedVMs = preSelectedVMs;
         }
 
+        public override void cancelFilter()
+        {
+        }
+
         public override bool FailureFound
         {
             get

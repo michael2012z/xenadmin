@@ -137,12 +137,14 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard
 
         protected override string TargetServerSelectionIntroText { get { return Messages.CPM_WIZARD_DESTINATION_TABLE_INTRO; } }
 
+        private IDictionary<string, IDictionary<string, string>> canMigrateFilterCache = new Dictionary<string, IDictionary<string, string>>();
+
         protected override DelayLoadingOptionComboBoxItem CreateDelayLoadingOptionComboBoxItem(IXenObject xenItem)
         {
             var filters = new List<ReasoningFilter>
             {
                 new ResidentHostIsSameAsSelectionFilter(xenItem, selectedVMs),
-                new CrossPoolMigrateCanMigrateFilter(xenItem, selectedVMs, wizardMode),
+                new CrossPoolMigrateCanMigrateFilter(xenItem, selectedVMs, wizardMode, canMigrateFilterCache),
                 new WlbEnabledFilter(xenItem, selectedVMs)
             };
             return new DelayLoadingOptionComboBoxItem(xenItem, filters);
@@ -155,7 +157,7 @@ namespace XenAdmin.Wizards.CrossPoolMigrateWizard
             if(selectedItem != null)
             {
                 filters.Add(new ResidentHostIsSameAsSelectionFilter(selectedItem.Item, selectedVMs));
-                filters.Add(new CrossPoolMigrateCanMigrateFilter(selectedItem.Item, selectedVMs, wizardMode));
+                filters.Add(new CrossPoolMigrateCanMigrateFilter(selectedItem.Item, selectedVMs, wizardMode, canMigrateFilterCache));
                 filters.Add(new WlbEnabledFilter(selectedItem.Item, selectedVMs));
             } 
 

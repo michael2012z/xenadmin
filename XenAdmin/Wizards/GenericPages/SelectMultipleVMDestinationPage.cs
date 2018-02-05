@@ -88,6 +88,7 @@ namespace XenAdmin.Wizards.GenericPages
 
         public override void PageCancelled()
         {
+	        cancelFilters();
             Program.Invoke(Program.MainWindow, ClearComboBox);
             Program.Invoke(Program.MainWindow, ClearDataGridView);
             ChosenItem = null;
@@ -246,10 +247,29 @@ namespace XenAdmin.Wizards.GenericPages
             {
                 DelayLoadingOptionComboBoxItem tempItem = item as DelayLoadingOptionComboBoxItem;
                 if (tempItem != null)
-                    tempItem.ReasonUpdated -= DelayLoadedComboBoxItem_ReasonChanged;
+                    tempItem.ReasonUpdated -= DestinationListItem_ReasonChanged;
             }
             m_comboBoxConnection.Items.Clear();
         }
+
+		private void cancelFilters()
+		{
+			foreach (DataGridViewRow row in m_dataGridView.Rows)
+			{
+					DataGridViewEnableableComboBoxCell cbCell = row.Cells[m_colTarget.Index] as DataGridViewEnableableComboBoxCell;
+					if (cbCell == null)
+						return;
+
+					List<IEnableableXenObjectComboBoxItem> list =
+						cbCell.Items.OfType<IEnableableXenObjectComboBoxItem>().ToList();
+					foreach (IEnableableXenObjectComboBoxItem cbi in list)
+					{
+						DelayLoadingOptionComboBoxItem it = cbi as DelayLoadingOptionComboBoxItem;
+						if (it != null)
+							it.cancelFilters();
+					}
+			}
+		}
 
         private void ClearDataGridView()
         {
@@ -286,7 +306,7 @@ namespace XenAdmin.Wizards.GenericPages
 					{
                         item = CreateDelayLoadingOptionComboBoxItem(host);
                         m_comboBoxConnection.Items.Add(item);
-                        item.ReasonUpdated += DelayLoadedComboBoxItem_ReasonChanged;
+                        item.ReasonUpdated += DestinationListItem_ReasonChanged;
                         item.Load();
 					    host.PropertyChanged -= PropertyChanged;
 					    host.PropertyChanged += PropertyChanged;
@@ -296,7 +316,7 @@ namespace XenAdmin.Wizards.GenericPages
 				{
                     item = CreateDelayLoadingOptionComboBoxItem(pool);
                     m_comboBoxConnection.Items.Add(item);
-                    item.ReasonUpdated += DelayLoadedComboBoxItem_ReasonChanged;
+                    item.ReasonUpdated += DestinationListItem_ReasonChanged;
                     item.Load();
 			        pool.PropertyChanged -= PropertyChanged;
 			        pool.PropertyChanged += PropertyChanged;
@@ -404,7 +424,8 @@ namespace XenAdmin.Wizards.GenericPages
                         foreach (var host in Connection.Cache.Hosts)
                         {
                             var item = new DelayLoadingOptionComboBoxItem(host, homeserverFilters);
-                            item.LoadAndWait();
+	                        item.ReasonUpdated += ServerListItem_ReasonChanged;
+							item.Load();
                             cb.Items.Add(item);
 
                             if ((m_selectedObject != null && m_selectedObject.opaque_ref == host.opaque_ref) ||
@@ -472,52 +493,69 @@ namespace XenAdmin.Wizards.GenericPages
 
 		#region Event Handlers
 
-        private void DelayLoadedComboBoxItem_ReasonChanged(object sender, EventArgs e)
+		private void UpdateComboBoxForReasonChanged(ComboBox bomboBox, DelayLoadingOptionComboBoxItem sender)
+		{
+			int index = bomboBox.Items.IndexOf(sender);
+			if (index > -1)
+			{
+				Program.Invoke(Program.MainWindow, delegate ()
+				{
+					int selectedIndex = bomboBox.SelectedIndex;
+
+					if (index > bomboBox.Items.Count)
+						return;
+
+					if (updatingDestinationCombobox || updatingHomeServerList)
+						return;
+
+					DelayLoadingOptionComboBoxItem tempItem =
+						bomboBox.Items[index] as DelayLoadingOptionComboBoxItem;
+					if (tempItem == null)
+						throw new NullReferenceException("Trying to update delay loaded reason but failed to extract reason");
+					tempItem.CopyFrom(sender);
+					bomboBox.BeginUpdate();
+					bomboBox.Items.RemoveAt(index);
+
+					if (updatingDestinationCombobox || updatingHomeServerList)
+					{
+						bomboBox.EndUpdate();
+						return;
+					}
+
+					bomboBox.Items.Insert(index, tempItem);
+					bomboBox.SelectedIndex = selectedIndex;
+					bomboBox.EndUpdate();
+
+					if (tempItem.PreferAsSelectedItem)
+						bomboBox.SelectedItem = tempItem;
+
+					
+				});
+			}
+		}
+        private void DestinationListItem_ReasonChanged(object sender, EventArgs e)
         {
             DelayLoadingOptionComboBoxItem item = sender as DelayLoadingOptionComboBoxItem;
 
             if (item == null)
                 throw new NullReferenceException("Trying to update delay loaded reason but failed to extract reason");
 
-            int index = m_comboBoxConnection.Items.IndexOf(item);
-            if (index > -1)
-            {
-                Program.Invoke( Program.MainWindow, delegate()
-                                                        {
-                                                            int selectedIndex = m_comboBoxConnection.SelectedIndex;
+	        UpdateComboBoxForReasonChanged(m_comboBoxConnection, item);
+			item.ReasonUpdated -= DestinationListItem_ReasonChanged;
 
+		}
 
-                                                            if (index > m_comboBoxConnection.Items.Count)
-                                                                return;
-
-                                                            if(updatingDestinationCombobox || updatingHomeServerList)
-                                                                return;
-
-                                                            DelayLoadingOptionComboBoxItem tempItem = 
-                                                                m_comboBoxConnection.Items[index] as DelayLoadingOptionComboBoxItem;
-                                                            if(tempItem == null)
-                                                                throw new NullReferenceException("Trying to update delay loaded reason but failed to extract reason");
-                                                            tempItem.CopyFrom(item);
-                                                            m_comboBoxConnection.BeginUpdate();
-                                                            m_comboBoxConnection.Items.RemoveAt(index);
-
-                                                            if (updatingDestinationCombobox || updatingHomeServerList)
-                                                            {
-                                                                m_comboBoxConnection.EndUpdate();
-                                                                return;
-                                                            }
-                                                                
-                                                            m_comboBoxConnection.Items.Insert(index, tempItem);
-                                                            m_comboBoxConnection.SelectedIndex = selectedIndex;
-                                                            m_comboBoxConnection.EndUpdate();
-
-                                                            if (tempItem.PreferAsSelectedItem)
-                                                                m_comboBoxConnection.SelectedItem = tempItem;
-
-                                                            item.ReasonUpdated -= DelayLoadedComboBoxItem_ReasonChanged;
-                                                        });
+		private void ServerListItem_ReasonChanged(object sender, EventArgs e)
+		{
+			ComboBox editingControl = m_dataGridView.EditingControl as ComboBox;
+			DelayLoadingOptionComboBoxItem item = sender as DelayLoadingOptionComboBoxItem;
+		    if ((editingControl != null) && (item != null))
+		    {
+		        UpdateComboBoxForReasonChanged(editingControl, item);
+		        item.ReasonUpdated -= ServerListItem_ReasonChanged;
             }
-        }
+    			
+		}
 
 		private void PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
