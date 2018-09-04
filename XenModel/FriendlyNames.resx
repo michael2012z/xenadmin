@@ -153,6 +153,9 @@
   <data name="Description-host.system_status-CVSM" xml:space="preserve">
     <value>The configuration settings of [Citrix] Storagelink</value>
   </data>
+  <data name="Description-host.system_status-VM-snapshot-schedule" xml:space="preserve">
+    <value>Scheduled snapshots log files</value>
+  </data>
   <data name="Description-host.system_status-X11" xml:space="preserve">
     <value>Log files from the X server</value>
   </data>
@@ -168,11 +171,20 @@
   <data name="Description-host.system_status-client-logs" xml:space="preserve">
     <value>Client application log files</value>
   </data>
+  <data name="Description-host.system_status-conntest" xml:space="preserve">
+    <value>Tests for connectivity between the server and the internet</value>
+  </data>
+  <data name="Description-host.system_status-control-slice" xml:space="preserve">
+    <value>Information and statistics about the system's control groups</value>
+  </data>
   <data name="Description-host.system_status-device-model" xml:space="preserve">
     <value>Device emulation logs</value>
   </data>
   <data name="Description-host.system_status-disk-info" xml:space="preserve">
     <value>Partition tables, free space, iSCSI and LVM configuration</value>
+  </data>
+  <data name="Description-host.system_status-fcoe" xml:space="preserve">
+    <value>Fibre Channel over Ethernet (FCoE) logs</value>
   </data>
   <data name="Description-host.system_status-filesystem_summarise" xml:space="preserve">
     <value>List of changed files in Dom 0</value>
@@ -200,6 +212,9 @@
   </data>
   <data name="Description-host.system_status-loopback-devices" xml:space="preserve">
     <value>Details of loopback devices</value>
+  </data>
+  <data name="Description-host.system_status-message-switch" xml:space="preserve">
+    <value>Logs of messages exchanged between system deamons</value>
   </data>
   <data name="Description-host.system_status-multipath" xml:space="preserve">
     <value>Retrieves the server's storage multipathing configuration</value>
@@ -249,6 +264,9 @@
   <data name="Description-host.system_status-xapi-subprocess" xml:space="preserve">
     <value>[XenServer] daemon process details</value>
   </data>
+  <data name="Description-host.system_status-xcp-rrdd-plugins" xml:space="preserve">
+    <value>Log files from the RRD daemon</value>
+  </data>
   <data name="Description-host.system_status-xen-info" xml:space="preserve">
     <value>Details of the hypervisor version and its current state</value>
   </data>
@@ -270,8 +288,14 @@
   <data name="Description-host.system_status-xenserver-logs" xml:space="preserve">
     <value>Log files concerning the server's activity</value>
   </data>
+  <data name="Description-host.system_status-xenvm" xml:space="preserve">
+    <value>Volume manager logs</value>
+  </data>
   <data name="Description-host.system_status-xha-liveset" xml:space="preserve">
     <value>HA liveset</value>
+  </data>
+  <data name="Description-host.system_status-xspvscache" xml:space="preserve">
+    <value>PVS-Accelerator Status</value>
   </data>
   <data name="Description-host.system_status-yum" xml:space="preserve">
     <value>YUM repository information and RPM package database listing</value>
@@ -336,8 +360,8 @@
   <data name="Label-Pool_patch.partially_applied" xml:space="preserve">
     <value>Partially applied</value>
   </data>
-  <data name="Label-SR.SRTypes-smb" xml:space="preserve">
-    <value>SMB/CIFS</value>
+  <data name="Label-Pool_patch.required-updates" xml:space="preserve">
+    <value>Required Updates</value>
   </data>
   <data name="Label-SR.SRTypes-cslg" xml:space="preserve">
     <value>StorageLink</value>
@@ -357,6 +381,9 @@
   <data name="Label-SR.SRTypes-ext" xml:space="preserve">
     <value>Ext3</value>
   </data>
+  <data name="Label-SR.SRTypes-gfs2" xml:space="preserve">
+    <value>GFS2</value>
+  </data>
   <data name="Label-SR.SRTypes-iscsi" xml:space="preserve">
     <value>VDI-per-LUN iSCSI</value>
   </data>
@@ -372,6 +399,9 @@
   <data name="Label-SR.SRTypes-lvmofc" xml:space="preserve">
     <value>Hardware HBA</value>
   </data>
+  <data name="Label-SR.SRTypes-lvmofcoe" xml:space="preserve">
+    <value>FCoE</value>
+  </data>
   <data name="Label-SR.SRTypes-lvmohba" xml:space="preserve">
     <value>Hardware HBA</value>
   </data>
@@ -384,14 +414,32 @@
   <data name="Label-SR.SRTypes-nfs" xml:space="preserve">
     <value>NFS</value>
   </data>
+  <data name="Label-SR.SRTypes-nutanix" xml:space="preserve">
+    <value>Nutanix</value>
+  </data>
+  <data name="Label-SR.SRTypes-nutanixiso" xml:space="preserve">
+    <value>Nutanix ISO</value>
+  </data>
+  <data name="Label-SR.SRTypes-rawhba" xml:space="preserve">
+    <value>LUN-per-VDI</value>
+  </data>
   <data name="Label-SR.SRTypes-shm" xml:space="preserve">
     <value>Local Performance Monitoring</value>
+  </data>
+  <data name="Label-SR.SRTypes-smb" xml:space="preserve">
+    <value>SMB/CIFS</value>
   </data>
   <data name="Label-SR.SRTypes-udev" xml:space="preserve">
     <value>udev</value>
   </data>
   <data name="Label-SR.SRTypes-unknown" xml:space="preserve">
     <value>Unknown</value>
+  </data>
+  <data name="Label-SR.disk-space-allocations" xml:space="preserve">
+    <value>Disk space allocations</value>
+  </data>
+  <data name="Label-SR.provisioning" xml:space="preserve">
+    <value>Provisioning</value>
   </data>
   <data name="Label-SR.scsiid" xml:space="preserve">
     <value>SCSI ID</value>
@@ -401,6 +449,9 @@
   </data>
   <data name="Label-SR.state" xml:space="preserve">
     <value>State</value>
+  </data>
+  <data name="Label-Supplemental_packs.installed" xml:space="preserve">
+    <value>Installed supplemental packs</value>
   </data>
   <data name="Label-VM.BootOrder" xml:space="preserve">
     <value>Boot order</value>
@@ -417,8 +468,14 @@
   <data name="Label-VM.KeyName" xml:space="preserve">
     <value>Key name</value>
   </data>
+  <data name="Label-VM.MaxVCPUs" xml:space="preserve">
+    <value>Max number of vCPUs</value>
+  </data>
   <data name="Label-VM.OSName" xml:space="preserve">
     <value>Operating System</value>
+  </data>
+  <data name="Label-VM.OperatingMode" xml:space="preserve">
+    <value>Virtualization mode</value>
   </data>
   <data name="Label-VM.P2V_ImportDate" xml:space="preserve">
     <value>P2V Import Date</value>
@@ -434,6 +491,9 @@
   </data>
   <data name="Label-VM.PublicDnsName" xml:space="preserve">
     <value>Public DNS entry</value>
+  </data>
+  <data name="Label-VM.Topology" xml:space="preserve">
+    <value>Topology</value>
   </data>
   <data name="Label-VM.VCPUWeight" xml:space="preserve">
     <value>vCPU priority</value>
@@ -522,6 +582,18 @@
   <data name="Label-VM.power_state-unknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
+  <data name="Label-VM.pvs_read_caching_status" xml:space="preserve">
+    <value>PVS-Accelerator status</value>
+  </data>
+  <data name="Label-VM.read_caching_disks" xml:space="preserve">
+    <value>Disks</value>
+  </data>
+  <data name="Label-VM.read_caching_reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="Label-VM.read_caching_status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Label-VM.uptime" xml:space="preserve">
     <value>Time since startup</value>
   </data>
@@ -543,8 +615,83 @@
   <data name="Label-host.edition" xml:space="preserve">
     <value>License</value>
   </data>
-  <data name="Label-host.edition-free" xml:space="preserve">
-    <value>[XenServer product]</value>
+  <data name="Label-host.edition-basic" xml:space="preserve">
+    <value>[Citrix XenServer] Basic Edition</value>
+  </data>
+  <data name="Label-host.edition-desktop" xml:space="preserve">
+    <value>[Citrix] Virtual Apps and Desktops</value>
+  </data>
+  <data name="Label-host.edition-desktop-cloud" xml:space="preserve">
+    <value>[Citrix] Virtual Apps and Desktops [Citrix] Cloud</value>
+  </data>
+  <data name="Label-host.edition-desktop-plus" xml:space="preserve">
+    <value>[Citrix] Virtual Apps and Desktops Premium</value>
+  </data>
+  <data name="Label-host.edition-enterprise-per-socket" xml:space="preserve">
+    <value>[Legacy XenServer product] Premium Per-Socket</value>
+  </data>
+  <data name="Label-host.edition-enterprise-per-user" xml:space="preserve">
+    <value>[Legacy XenServer product] Premium Per-User</value>
+  </data>
+  <data name="Label-host.edition-express" xml:space="preserve">
+    <value>[XenServer product] Express</value>
+  </data>
+  <data name="Label-host.edition-legacy-basic" xml:space="preserve">
+    <value>[Legacy Citrix XenServer] Basic Edition</value>
+  </data>
+  <data name="Label-host.edition-legacy-desktop" xml:space="preserve">
+    <value>XenApp/XenDesktop</value>
+  </data>
+  <data name="Label-host.edition-legacy-desktop-cloud" xml:space="preserve">
+    <value>XenApp/XenDesktop [Citrix] Cloud</value>
+  </data>
+  <data name="Label-host.edition-legacy-desktop-plus" xml:space="preserve">
+    <value>XenApp/XenDesktop Platinum</value>
+  </data>
+  <data name="Label-host.edition-legacy-enterprise-per-socket" xml:space="preserve">
+    <value>[Legacy XenServer product] Enterprise Per-Socket</value>
+  </data>
+  <data name="Label-host.edition-legacy-enterprise-per-user" xml:space="preserve">
+    <value>[Legacy XenServer product] Enterprise Per-User</value>
+  </data>
+  <data name="Label-host.edition-legacy-free" xml:space="preserve">
+    <value>[Legacy XenServer product]</value>
+  </data>
+  <data name="Label-host.edition-legacy-per-socket" xml:space="preserve">
+    <value>[Legacy XenServer product] Per-Socket</value>
+  </data>
+  <data name="Label-host.edition-legacy-premium" xml:space="preserve">
+    <value>[Legacy Citrix XenServer] Ultimate Edition</value>
+  </data>
+  <data name="Label-host.edition-legacy-standard" xml:space="preserve">
+    <value>[Legacy Citrix XenServer] Standard Edition</value>
+  </data>
+  <data name="Label-host.edition-legacy-standard-per-socket" xml:space="preserve">
+    <value>[Legacy XenServer product] Standard Per-Socket</value>
+  </data>
+  <data name="Label-host.edition-legacy-xendesktop" xml:space="preserve">
+    <value>[Legacy XenServer product] for XenDesktop</value>
+  </data>
+  <data name="Label-host.edition-per-socket" xml:space="preserve">
+    <value>[XenServer product] Per-Socket</value>
+  </data>
+  <data name="Label-host.edition-premium" xml:space="preserve">
+    <value>[Citrix XenServer] Ultimate Edition</value>
+  </data>
+  <data name="Label-host.edition-premium-per-socket" xml:space="preserve">
+    <value>[XenServer product] Premium Per-Socket</value>
+  </data>
+  <data name="Label-host.edition-premium-per-user" xml:space="preserve">
+    <value>[XenServer product] Premium Per-User</value>
+  </data>
+  <data name="Label-host.edition-standard" xml:space="preserve">
+    <value>[Citrix XenServer] Standard Edition</value>
+  </data>
+  <data name="Label-host.edition-standard-per-socket" xml:space="preserve">
+    <value>[XenServer product] Standard Per-Socket</value>
+  </data>
+  <data name="Label-host.edition-xendesktop" xml:space="preserve">
+    <value>[XenServer product] for [Citrix] Virtual Desktops</value>
   </data>
   <data name="Label-host.enabled" xml:space="preserve">
     <value>Enabled</value>
@@ -597,6 +744,9 @@
   <data name="Label-host.system_status-CVSM" xml:space="preserve">
     <value>[Citrix] StorageLink configuration</value>
   </data>
+  <data name="Label-host.system_status-VM-snapshot-schedule" xml:space="preserve">
+    <value>Scheduled snapshots log files</value>
+  </data>
   <data name="Label-host.system_status-X11" xml:space="preserve">
     <value>X server logs</value>
   </data>
@@ -612,11 +762,20 @@
   <data name="Label-host.system_status-client-logs" xml:space="preserve">
     <value>[XenCenter] logs</value>
   </data>
+  <data name="Label-host.system_status-conntest" xml:space="preserve">
+    <value>Connection test</value>
+  </data>
+  <data name="Label-host.system_status-control-slice" xml:space="preserve">
+    <value>Control group statistics</value>
+  </data>
   <data name="Label-host.system_status-device-model" xml:space="preserve">
     <value>Device model</value>
   </data>
   <data name="Label-host.system_status-disk-info" xml:space="preserve">
     <value>Disk information</value>
+  </data>
+  <data name="Label-host.system_status-fcoe" xml:space="preserve">
+    <value>FCoE logs</value>
   </data>
   <data name="Label-host.system_status-filesystem_summarise" xml:space="preserve">
     <value>Changed files</value>
@@ -644,6 +803,9 @@
   </data>
   <data name="Label-host.system_status-loopback-devices" xml:space="preserve">
     <value>Loopback devices</value>
+  </data>
+  <data name="Label-host.system_status-message-switch" xml:space="preserve">
+    <value>Internal message logs</value>
   </data>
   <data name="Label-host.system_status-multipath" xml:space="preserve">
     <value>Multipathing configuration</value>
@@ -693,6 +855,9 @@
   <data name="Label-host.system_status-xapi-subprocess" xml:space="preserve">
     <value>[XenServer] daemon subprocesses</value>
   </data>
+  <data name="Label-host.system_status-xcp-rrdd-plugins" xml:space="preserve">
+    <value>RRD plugin logs</value>
+  </data>
   <data name="Label-host.system_status-xen-info" xml:space="preserve">
     <value>Hypervisor configuration</value>
   </data>
@@ -714,8 +879,17 @@
   <data name="Label-host.system_status-xenserver-logs" xml:space="preserve">
     <value>[XenServer] logs</value>
   </data>
+  <data name="Label-host.system_status-xenvm" xml:space="preserve">
+    <value>Volume manager logs</value>
+  </data>
   <data name="Label-host.system_status-xha-liveset" xml:space="preserve">
     <value>High availability liveset</value>
+  </data>
+  <data name="Label-host.system_status-xscontainer" xml:space="preserve">
+    <value>Container management logs</value>
+  </data>
+  <data name="Label-host.system_status-xspvscache" xml:space="preserve">
+    <value>PVS-Accelerator Status</value>
   </data>
   <data name="Label-host.system_status-yum" xml:space="preserve">
     <value>RPM package database</value>
@@ -725,6 +899,9 @@
   </data>
   <data name="Label-host.uuid" xml:space="preserve">
     <value>UUID</value>
+  </data>
+  <data name="Label-performance.Tapdisks_in_low_memory_mode" xml:space="preserve">
+    <value>Tapdisks in low memory mode</value>
   </data>
   <data name="Label-performance.avg_cpu" xml:space="preserve">
     <value>Average CPU</value>
@@ -746,6 +923,33 @@
   </data>
   <data name="Label-performance.cpu-avg-freq" xml:space="preserve">
     <value>CPU {0} Average Frequency</value>
+  </data>
+  <data name="Label-performance.cpu-state" xml:space="preserve">
+    <value>CPU {0} {1}-state {2}</value>
+  </data>
+  <data name="Label-performance.cpu_avg" xml:space="preserve">
+    <value>Average CPU</value>
+  </data>
+  <data name="Label-performance.gpu_memory_free" xml:space="preserve">
+    <value>{0} {1} Free Memory</value>
+  </data>
+  <data name="Label-performance.gpu_memory_used" xml:space="preserve">
+    <value>{0} {1} Used Memory</value>
+  </data>
+  <data name="Label-performance.gpu_power_usage" xml:space="preserve">
+    <value>{0} {1} Power Usage</value>
+  </data>
+  <data name="Label-performance.gpu_temperature" xml:space="preserve">
+    <value>{0} {1} Temperature</value>
+  </data>
+  <data name="Label-performance.gpu_utilisation_compute" xml:space="preserve">
+    <value>{0} {1} Utilization</value>
+  </data>
+  <data name="Label-performance.gpu_utilisation_memory_io" xml:space="preserve">
+    <value>{0} {1} Memory Utilization</value>
+  </data>
+  <data name="Label-performance.io_errors" xml:space="preserve">
+    <value>I/O errors</value>
   </data>
   <data name="Label-performance.lo_rx" xml:space="preserve">
     <value>Loopback Receive</value>
@@ -774,6 +978,12 @@
   <data name="Label-performance.memory_internal_used" xml:space="preserve">
     <value>Used Memory</value>
   </data>
+  <data name="Label-performance.memory_reclaimed" xml:space="preserve">
+    <value>Reclaimed Memory</value>
+  </data>
+  <data name="Label-performance.memory_reclaimed_max" xml:space="preserve">
+    <value>Potential Reclaimed Memory</value>
+  </data>
   <data name="Label-performance.memory_target" xml:space="preserve">
     <value>Memory target</value>
   </data>
@@ -798,6 +1008,42 @@
   <data name="Label-performance.nic_tx_errors" xml:space="preserve">
     <value>NIC {0} Send Errors</value>
   </data>
+  <data name="Label-performance.pif_aggr_rx" xml:space="preserve">
+    <value>Total NIC Receive</value>
+  </data>
+  <data name="Label-performance.pif_aggr_tx" xml:space="preserve">
+    <value>Total NIC Send</value>
+  </data>
+  <data name="Label-performance.pool_session_count" xml:space="preserve">
+    <value>Number of sessions</value>
+  </data>
+  <data name="Label-performance.pool_task_count" xml:space="preserve">
+    <value>Number of tasks</value>
+  </data>
+  <data name="Label-performance.pvsaccelerator_evicted" xml:space="preserve">
+    <value>PVS-Accelerator eviction rate</value>
+  </data>
+  <data name="Label-performance.pvsaccelerator_read_hits" xml:space="preserve">
+    <value>PVS-Accelerator hit rate</value>
+  </data>
+  <data name="Label-performance.pvsaccelerator_read_misses" xml:space="preserve">
+    <value>PVS-Accelerator miss rate</value>
+  </data>
+  <data name="Label-performance.pvsaccelerator_read_total" xml:space="preserve">
+    <value>PVS-Accelerator observed read rate</value>
+  </data>
+  <data name="Label-performance.pvsaccelerator_space_utilization" xml:space="preserve">
+    <value>PVS-Accelerator space utilization</value>
+  </data>
+  <data name="Label-performance.pvsaccelerator_traffic_client_sent" xml:space="preserve">
+    <value>PVS-Accelerator observed network traffic from clients</value>
+  </data>
+  <data name="Label-performance.pvsaccelerator_traffic_proxy_saved" xml:space="preserve">
+    <value>PVS-Accelerator saved network traffic</value>
+  </data>
+  <data name="Label-performance.pvsaccelerator_traffic_server_sent" xml:space="preserve">
+    <value>PVS-Accelerator observed network traffic from servers</value>
+  </data>
   <data name="Label-performance.runstate_blocked" xml:space="preserve">
     <value>vCPUs idle</value>
   </data>
@@ -819,6 +1065,9 @@
   <data name="Label-performance.runstate_partial_run" xml:space="preserve">
     <value>vCPUs partial run</value>
   </data>
+  <data name="Label-performance.sr_avgqu_sz" xml:space="preserve">
+    <value>'{0}' Queue Size</value>
+  </data>
   <data name="Label-performance.sr_cache_hits" xml:space="preserve">
     <value>IntelliCache Cache Hits</value>
   </data>
@@ -827,6 +1076,45 @@
   </data>
   <data name="Label-performance.sr_cache_size" xml:space="preserve">
     <value>IntelliCache Cache Size</value>
+  </data>
+  <data name="Label-performance.sr_inflight" xml:space="preserve">
+    <value>'{0}' Inflight Requests</value>
+  </data>
+  <data name="Label-performance.sr_io_throughput_read" xml:space="preserve">
+    <value>'{0}' Read Throughput</value>
+  </data>
+  <data name="Label-performance.sr_io_throughput_total" xml:space="preserve">
+    <value>'{0}' Total Throughput</value>
+  </data>
+  <data name="Label-performance.sr_io_throughput_write" xml:space="preserve">
+    <value>'{0}' Write Throughput</value>
+  </data>
+  <data name="Label-performance.sr_iops_read" xml:space="preserve">
+    <value>'{0}' Read IOPS</value>
+  </data>
+  <data name="Label-performance.sr_iops_total" xml:space="preserve">
+    <value>'{0}' Total IOPS</value>
+  </data>
+  <data name="Label-performance.sr_iops_write" xml:space="preserve">
+    <value>'{0}' Write IOPS</value>
+  </data>
+  <data name="Label-performance.sr_iowait" xml:space="preserve">
+    <value>'{0}' IO Wait</value>
+  </data>
+  <data name="Label-performance.sr_latency" xml:space="preserve">
+    <value>'{0}' Latency</value>
+  </data>
+  <data name="Label-performance.sr_rw_read" xml:space="preserve">
+    <value>'{0}' Read Throughput</value>
+  </data>
+  <data name="Label-performance.sr_rw_read_latency" xml:space="preserve">
+    <value>'{0}' Read Latency</value>
+  </data>
+  <data name="Label-performance.sr_rw_write" xml:space="preserve">
+    <value>'{0}' Write Throughput</value>
+  </data>
+  <data name="Label-performance.sr_rw_write_latency" xml:space="preserve">
+    <value>'{0}' Write Latency</value>
   </data>
   <data name="Label-performance.statefile_latency" xml:space="preserve">
     <value>HA Statefile Latency</value>
@@ -842,6 +1130,33 @@
   </data>
   <data name="Label-performance.tap_tx_errors" xml:space="preserve">
     <value>TAP {0} Send Errors</value>
+  </data>
+  <data name="Label-performance.vbd_avgqu_sz" xml:space="preserve">
+    <value>Disk {0} Queue Size</value>
+  </data>
+  <data name="Label-performance.vbd_inflight" xml:space="preserve">
+    <value>Disk {0} Inflight Requests</value>
+  </data>
+  <data name="Label-performance.vbd_io_throughput_read" xml:space="preserve">
+    <value>Disk {0} IO Read Throughput</value>
+  </data>
+  <data name="Label-performance.vbd_io_throughput_total" xml:space="preserve">
+    <value>Disk {0} IO Total Throughput</value>
+  </data>
+  <data name="Label-performance.vbd_io_throughput_write" xml:space="preserve">
+    <value>Disk {0} IO Write Throughput</value>
+  </data>
+  <data name="Label-performance.vbd_iops_read" xml:space="preserve">
+    <value>Disk {0} Read IOPS</value>
+  </data>
+  <data name="Label-performance.vbd_iops_total" xml:space="preserve">
+    <value>Disk {0} Total IOPS</value>
+  </data>
+  <data name="Label-performance.vbd_iops_write" xml:space="preserve">
+    <value>Disk {0} Write IOPS</value>
+  </data>
+  <data name="Label-performance.vbd_iowait" xml:space="preserve">
+    <value>Disk {0} IO Wait</value>
   </data>
   <data name="Label-performance.vbd_read" xml:space="preserve">
     <value>Disk {0} Read</value>
@@ -894,6 +1209,9 @@
   <data name="Label-performance.xapi_memory_usage_kib" xml:space="preserve">
     <value>Agent Memory Usage</value>
   </data>
+  <data name="Label-performance.xapi_open_fds" xml:space="preserve">
+    <value>Number of open file descriptors</value>
+  </data>
   <data name="Label-performance.xapi_rx" xml:space="preserve">
     <value>&lt;Internal&gt; Network {0} Receive</value>
   </data>
@@ -920,6 +1238,15 @@
   </data>
   <data name="Label-pool.ha_enabled" xml:space="preserve">
     <value>Pool HA enabled</value>
+  </data>
+  <data name="Label-pvsaccelerator" xml:space="preserve">
+    <value>PVS-Accelerator</value>
+  </data>
+  <data name="Label-xenserver-measured-boot" xml:space="preserve">
+    <value>Measured Boot</value>
+  </data>
+  <data name="Label-xscontainer" xml:space="preserve">
+    <value>Container Management</value>
   </data>
   <data name="Message.action-ha_heartbeat_approaching_timeout" xml:space="preserve">
     <value>HA Settings</value>
@@ -959,6 +1286,9 @@
   </data>
   <data name="Message.action-multipath_periodic_alert" xml:space="preserve">
     <value>View Log Files</value>
+  </data>
+  <data name="Message.action-pbd_plug_failed_on_server_start" xml:space="preserve">
+    <value>Repair Storage</value>
   </data>
   <data name="Message.action-vbd_qos_failed" xml:space="preserve">
     <value>Apply License</value>
@@ -1025,11 +1355,17 @@
   <data name="Message.body-host_clock_went_backwards" xml:space="preserve">
     <value>The server clock on '{0}' has gone backwards.</value>
   </data>
+  <data name="Message.body-host_cpu_features_down" xml:space="preserve">
+    <value>The CPU feature level on host '{0}' has been reduced.</value>
+  </data>
+  <data name="Message.body-host_cpu_features_up" xml:space="preserve">
+    <value>The CPU feature level on host '{0}' has been increased.</value>
+  </data>
   <data name="Message.body-host_sync_data_failed" xml:space="preserve">
     <value>There was a temporary failure synchronizing performance statistics across the pool, probably because one or more servers were offline.  Another synchronization attempt will be made later.</value>
   </data>
   <data name="Message.body-license_does_not_support_pooling" xml:space="preserve">
-    <value>The license on server '{0}' has expired or been changed, and no longer supports [XenServer product] Premium features.</value>
+    <value>The license on server '{0}' has expired or been changed, pooling is no longer supported.</value>
   </data>
   <data name="Message.body-license_expired" xml:space="preserve">
     <value>The license for {0} has expired.</value>
@@ -1048,6 +1384,9 @@
   </data>
   <data name="Message.body-license_server_unreachable" xml:space="preserve">
     <value>A license for {0} could not be checked-out because the license server could not be reached at the given address and port. Please check the connection details, and verify that the license server is running.</value>
+  </data>
+  <data name="Message.body-license_server_version_obsolete" xml:space="preserve">
+    <value>The license server for {0} is an out-of-date version.</value>
   </data>
   <data name="Message.body-metadata_lun_broken" xml:space="preserve">
     <value>Pool '{0}' is unable to access the HA metadata disk. Until access is restored changes to the pool metadata may be lost in the event of an HA failover.</value>
@@ -1070,8 +1409,17 @@
   <data name="Message.body-pbd_plug_failed_on_server_start" xml:space="preserve">
     <value>A storage repository could not be attached when server '{0}' started.</value>
   </data>
+  <data name="Message.body-pool_cpu_features_down" xml:space="preserve">
+    <value>The CPU feature level on pool '{0}' has been reduced.</value>
+  </data>
+  <data name="Message.body-pool_cpu_features_up" xml:space="preserve">
+    <value>The CPU feature level on pool '{0}' has been increased.</value>
+  </data>
   <data name="Message.body-pool_master_transition" xml:space="preserve">
     <value>Server '{0}' is now the master of pool '{1}'.</value>
+  </data>
+  <data name="Message.body-pvs_proxy_no_cache_sr_available" xml:space="preserve">
+    <value>Unable to setup PVS-Accelerator on VM '{0}'. No cache storage found on site '{1}'.</value>
   </data>
   <data name="Message.body-vbd_qos_failed" xml:space="preserve">
     <value>Quality of Service settings for disk '{0}' on virtual machine '{1}' could not be obeyed.</value>
@@ -1142,6 +1490,12 @@
   <data name="Message.help-alarm" xml:space="preserve">
     <value>Help on Alarms</value>
   </data>
+  <data name="Message.help-extauth_in_pool_is_non_homogeneous" xml:space="preserve">
+    <value>Help on AD</value>
+  </data>
+  <data name="Message.help-extauth_init_in_host_failed" xml:space="preserve">
+    <value>Help on AD</value>
+  </data>
   <data name="Message.help-ha_heartbeat_approaching_timeout" xml:space="preserve">
     <value>Help on HA</value>
   </data>
@@ -1178,6 +1532,24 @@
   <data name="Message.help-license_does_not_support_pooling" xml:space="preserve">
     <value>Help on Licensing</value>
   </data>
+  <data name="Message.help-license_expired" xml:space="preserve">
+    <value>Help on Licensing</value>
+  </data>
+  <data name="Message.help-license_not_available" xml:space="preserve">
+    <value>Help on Licensing</value>
+  </data>
+  <data name="Message.help-license_server_connected" xml:space="preserve">
+    <value>Help on Licensing</value>
+  </data>
+  <data name="Message.help-license_server_unavailable" xml:space="preserve">
+    <value>Help on Licensing</value>
+  </data>
+  <data name="Message.help-license_server_unreachable" xml:space="preserve">
+    <value>Help on Licensing</value>
+  </data>
+  <data name="Message.help-license_server_version_obsolete" xml:space="preserve">
+    <value>Help on Licensing</value>
+  </data>
   <data name="Message.help-pbd_plug_failed_on_server_start" xml:space="preserve">
     <value>Help on Broken Storage</value>
   </data>
@@ -1189,6 +1561,15 @@
   </data>
   <data name="Message.help-vif_qos_failed" xml:space="preserve">
     <value>Help on QoS</value>
+  </data>
+  <data name="Message.name-SRUnavailable" xml:space="preserve">
+    <value>Cannot reclaim freed space because the SR is already busy</value>
+  </data>
+  <data name="Message.name-UnknownTrimException" xml:space="preserve">
+    <value>An unknown error occurred when reclaiming freed space</value>
+  </data>
+  <data name="Message.name-UnsupportedSRForTrim" xml:space="preserve">
+    <value>Reclaiming freed space not supported on this SR</value>
   </data>
   <data name="Message.name-alarm" xml:space="preserve">
     <value>Unrecognized alarm</value>
@@ -1241,6 +1622,12 @@
   <data name="Message.name-host_clock_went_backwards" xml:space="preserve">
     <value>Server clock has gone backwards</value>
   </data>
+  <data name="Message.name-host_cpu_features_down" xml:space="preserve">
+    <value>Host CPU features reduced</value>
+  </data>
+  <data name="Message.name-host_cpu_features_up" xml:space="preserve">
+    <value>Host CPU features increased</value>
+  </data>
   <data name="Message.name-host_sync_data_failed" xml:space="preserve">
     <value>Server statistics synchronization failed</value>
   </data>
@@ -1268,6 +1655,9 @@
   <data name="Message.name-license_server_unreachable" xml:space="preserve">
     <value>The license server could not be reached.</value>
   </data>
+  <data name="Message.name-license_server_version_obsolete" xml:space="preserve">
+    <value>The license server is an out-of-date version.</value>
+  </data>
   <data name="Message.name-metadata_lun_broken" xml:space="preserve">
     <value>Lost access to HA metadata disk</value>
   </data>
@@ -1280,8 +1670,20 @@
   <data name="Message.name-pbd_plug_failed_on_server_start" xml:space="preserve">
     <value>Failed to attach storage on server start</value>
   </data>
+  <data name="Message.name-pool_cpu_features_down" xml:space="preserve">
+    <value>Pool CPU features reduced</value>
+  </data>
+  <data name="Message.name-pool_cpu_features_up" xml:space="preserve">
+    <value>Pool CPU features increased</value>
+  </data>
   <data name="Message.name-pool_master_transition" xml:space="preserve">
     <value>Pool master changed</value>
+  </data>
+  <data name="Message.name-pvs_proxy_no_cache_sr_available" xml:space="preserve">
+    <value>No cache storage available for PVS site</value>
+  </data>
+  <data name="Message.name-pvs_proxy_setup_failed" xml:space="preserve">
+    <value>PVS proxy setup failed</value>
   </data>
   <data name="Message.name-vbd_qos_failed" xml:space="preserve">
     <value>VM Disk QoS Failed</value>
@@ -1433,6 +1835,9 @@
   <data name="SR.name_description-local-hotplug-cd-host" xml:space="preserve">
     <value>Physical DVD drives on {0}</value>
   </data>
+  <data name="SR.name_description-local-hotplug-disk" xml:space="preserve">
+    <value>Physical removable storage</value>
+  </data>
   <data name="SR.name_description-local-hotplug-disk-host" xml:space="preserve">
     <value>Physical removable storage on {0}</value>
   </data>
@@ -1480,368 +1885,5 @@
   </data>
   <data name="VM.TemplateDescription-Xen API SDK" xml:space="preserve">
     <value>This template may be used to install the [XenServer] Software Development Kit (SDK) API VM. </value>
-  </data>
-  <data name="SR.name_description-local-hotplug-disk" xml:space="preserve">
-    <value>Physical removable storage</value>
-  </data>
-  <data name="Label-performance.cpu_avg" xml:space="preserve">
-    <value>Average CPU</value>
-  </data>
-  <data name="Label-performance.pif_aggr_rx" xml:space="preserve">
-    <value>Total NIC Receive</value>
-  </data>
-  <data name="Label-performance.pif_aggr_tx" xml:space="preserve">
-    <value>Total NIC Send</value>
-  </data>
-  <data name="Label-SR.SRTypes-rawhba" xml:space="preserve">
-    <value>LUN-per-VDI</value>
-  </data>
-  <data name="Label-performance.sr_avgqu_sz" xml:space="preserve">
-    <value>'{0}' Queue Size</value>
-  </data>
-  <data name="Label-performance.cpu-state" xml:space="preserve">
-    <value>CPU {0} {1}-state {2}</value>
-  </data>
-  <data name="Label-performance.sr_inflight" xml:space="preserve">
-    <value>'{0}' Inflight Requests</value>
-  </data>
-  <data name="Label-performance.sr_iops_read" xml:space="preserve">
-    <value>'{0}' Read IOPS</value>
-  </data>
-  <data name="Label-performance.sr_iops_total" xml:space="preserve">
-    <value>'{0}' Total IOPS</value>
-  </data>
-  <data name="Label-performance.sr_iops_write" xml:space="preserve">
-    <value>'{0}' Write IOPS</value>
-  </data>
-  <data name="Label-performance.sr_iowait" xml:space="preserve">
-    <value>'{0}' IO Wait</value>
-  </data>
-  <data name="Label-performance.sr_io_throughput_read" xml:space="preserve">
-    <value>'{0}' Read Throughput</value>
-  </data>
-  <data name="Label-performance.sr_io_throughput_total" xml:space="preserve">
-    <value>'{0}' Total Throughput</value>
-  </data>
-  <data name="Label-performance.sr_io_throughput_write" xml:space="preserve">
-    <value>'{0}' Write Throughput</value>
-  </data>
-  <data name="Label-performance.sr_latency" xml:space="preserve">
-    <value>'{0}' Latency</value>
-  </data>
-  <data name="Label-performance.memory_reclaimed" xml:space="preserve">
-    <value>Reclaimed Memory</value>
-  </data>
-  <data name="Label-performance.memory_reclaimed_max" xml:space="preserve">
-    <value>Potential Reclaimed Memory</value>
-  </data>
-  <data name="Label-host.edition-per-socket" xml:space="preserve">
-    <value>[XenServer product] Per-Socket</value>
-  </data>
-  <data name="Label-host.edition-xendesktop" xml:space="preserve">
-    <value>[XenServer product] for [Citrix] Virtual Desktops</value>
-  </data>
-  <data name="Message.help-extauth_init_in_host_failed" xml:space="preserve">
-    <value>Help on AD</value>
-  </data>
-  <data name="Message.help-extauth_in_pool_is_non_homogeneous" xml:space="preserve">
-    <value>Help on AD</value>
-  </data>
-  <data name="Label-performance.vbd_avgqu_sz" xml:space="preserve">
-    <value>Disk {0} Queue Size</value>
-  </data>
-  <data name="Label-performance.vbd_inflight" xml:space="preserve">
-    <value>Disk {0} Inflight Requests</value>
-  </data>
-  <data name="Label-performance.vbd_iops_read" xml:space="preserve">
-    <value>Disk {0} Read IOPS</value>
-  </data>
-  <data name="Label-performance.vbd_iops_total" xml:space="preserve">
-    <value>Disk {0} Total IOPS</value>
-  </data>
-  <data name="Label-performance.vbd_iops_write" xml:space="preserve">
-    <value>Disk {0} Write IOPS</value>
-  </data>
-  <data name="Label-performance.vbd_iowait" xml:space="preserve">
-    <value>Disk {0} IO Wait</value>
-  </data>
-  <data name="Label-performance.gpu_memory_free" xml:space="preserve">
-    <value>{0} {1} Free Memory</value>
-  </data>
-  <data name="Label-performance.gpu_memory_used" xml:space="preserve">
-    <value>{0} {1} Used Memory</value>
-  </data>
-  <data name="Label-performance.gpu_power_usage" xml:space="preserve">
-    <value>{0} {1} Power Usage</value>
-  </data>
-  <data name="Label-performance.gpu_temperature" xml:space="preserve">
-    <value>{0} {1} Temperature</value>
-  </data>
-  <data name="Label-performance.gpu_utilisation_compute" xml:space="preserve">
-    <value>{0} {1} Utilization</value>
-  </data>
-  <data name="Label-performance.gpu_utilisation_memory_io" xml:space="preserve">
-    <value>{0} {1} Memory Utilization</value>
-  </data>
-  <data name="Message.name-SRUnavailable" xml:space="preserve">
-    <value>Cannot reclaim freed space because the SR is already busy</value>
-  </data>
-  <data name="Message.name-UnknownTrimException" xml:space="preserve">
-    <value>An unknown error occurred when reclaiming freed space</value>
-  </data>
-  <data name="Message.name-UnsupportedSRForTrim" xml:space="preserve">
-    <value>Reclaiming freed space not supported on this SR</value>
-  </data>
-  <data name="Description-host.system_status-xcp-rrdd-plugins" xml:space="preserve">
-    <value>Log files from the RRD daemon</value>
-  </data>
-  <data name="Label-host.system_status-xcp-rrdd-plugins" xml:space="preserve">
-    <value>RRD plugin logs</value>
-  </data>
-  <data name="Label-VM.Topology" xml:space="preserve">
-    <value>Topology</value>
-  </data>
-  <data name="Label-VM.MaxVCPUs" xml:space="preserve">
-    <value>Max number of vCPUs</value>
-  </data>
-  <data name="Message.body-license_server_version_obsolete" xml:space="preserve">
-    <value>The license server for {0} is an out-of-date version.</value>
-  </data>
-  <data name="Message.name-license_server_version_obsolete" xml:space="preserve">
-    <value>The license server is an out-of-date version.</value>
-  </data>
-  <data name="Label-host.edition-enterprise-per-socket" xml:space="preserve">
-    <value>[XenServer product] Premium Per-Socket</value>
-  </data>
-  <data name="Label-host.edition-enterprise-per-user" xml:space="preserve">
-    <value>[XenServer product] Premium Per-User</value>
-  </data>
-  <data name="Label-host.edition-standard-per-socket" xml:space="preserve">
-    <value>[XenServer product] Standard Per-Socket</value>
-  </data>
-  <data name="Message.help-license_expired" xml:space="preserve">
-    <value>Help on Licensing</value>
-  </data>
-  <data name="Message.help-license_not_available" xml:space="preserve">
-    <value>Help on Licensing</value>
-  </data>
-  <data name="Message.help-license_server_connected" xml:space="preserve">
-    <value>Help on Licensing</value>
-  </data>
-  <data name="Message.help-license_server_unavailable" xml:space="preserve">
-    <value>Help on Licensing</value>
-  </data>
-  <data name="Message.help-license_server_unreachable" xml:space="preserve">
-    <value>Help on Licensing</value>
-  </data>
-  <data name="Message.help-license_server_version_obsolete" xml:space="preserve">
-    <value>Help on Licensing</value>
-  </data>
-  <data name="Label-host.edition-desktop" xml:space="preserve">
-    <value>[Citrix] Virtual Apps and Desktops</value>
-  </data>
-  <data name="Label-host.edition-desktop-plus" xml:space="preserve">
-    <value>[Citrix] Virtual Apps and Desktops Premium</value>
-  </data>
-  <data name="Label-Supplemental_packs.installed" xml:space="preserve">
-    <value>Installed supplemental packs</value>
-  </data>
-  <data name="Label-VM.read_caching_status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="Label-VM.read_caching_disks" xml:space="preserve">
-    <value>Disks</value>
-  </data>
-  <data name="Label-VM.read_caching_reason" xml:space="preserve">
-    <value>Reason</value>
-  </data>
-  <data name="Label-performance.vbd_io_throughput_total" xml:space="preserve">
-    <value>Disk {0} IO Total Throughput</value>
-  </data>
-  <data name="Label-performance.vbd_io_throughput_read" xml:space="preserve">
-    <value>Disk {0} IO Read Throughput</value>
-  </data>
-  <data name="Label-performance.vbd_io_throughput_write" xml:space="preserve">
-    <value>Disk {0} IO Write Throughput</value>
-  </data>
-  <data name="Label-VM.OperatingMode" xml:space="preserve">
-    <value>Virtualization mode</value>
-  </data>
-  <data name="Label-SR.SRTypes-lvmofcoe" xml:space="preserve">
-    <value>FCoE</value>
-  </data>
-  <data name="Label-SR.provisioning" xml:space="preserve">
-    <value>Provisioning</value>
-  </data>
-  <data name="Label-SR.disk-space-allocations" xml:space="preserve">
-    <value>Disk space allocations</value>
-  </data>
-  <data name="Label-performance.pool_session_count" xml:space="preserve">
-    <value>Number of sessions</value>
-  </data>
-  <data name="Label-performance.pool_task_count" xml:space="preserve">
-    <value>Number of tasks</value>
-  </data>
-  <data name="Label-performance.Tapdisks_in_low_memory_mode" xml:space="preserve">
-    <value>Tapdisks in low memory mode</value>
-  </data>
-  <data name="Label-performance.xapi_open_fds" xml:space="preserve">
-    <value>Number of open file descriptors</value>
-  </data>
-  <data name="Label-performance.io_errors" xml:space="preserve">
-    <value>I/O errors</value>
-  </data>
-  <data name="Message.body-host_cpu_features_down" xml:space="preserve">
-    <value>The CPU feature level on host '{0}' has been reduced.</value>
-  </data>
-  <data name="Message.body-host_cpu_features_up" xml:space="preserve">
-    <value>The CPU feature level on host '{0}' has been increased.</value>
-  </data>
-  <data name="Message.body-pool_cpu_features_down" xml:space="preserve">
-    <value>The CPU feature level on pool '{0}' has been reduced.</value>
-  </data>
-  <data name="Message.body-pool_cpu_features_up" xml:space="preserve">
-    <value>The CPU feature level on pool '{0}' has been increased.</value>
-  </data>
-  <data name="Message.name-host_cpu_features_down" xml:space="preserve">
-    <value>Host CPU features reduced</value>
-  </data>
-  <data name="Message.name-host_cpu_features_up" xml:space="preserve">
-    <value>Host CPU features increased</value>
-  </data>
-  <data name="Message.name-pool_cpu_features_down" xml:space="preserve">
-    <value>Pool CPU features reduced</value>
-  </data>
-  <data name="Message.name-pool_cpu_features_up" xml:space="preserve">
-    <value>Pool CPU features increased</value>
-  </data>
-  <data name="Description-host.system_status-control-slice" xml:space="preserve">
-    <value>Information and statistics about the system's control groups</value>
-  </data>
-  <data name="Description-host.system_status-fcoe" xml:space="preserve">
-    <value>Fibre Channel over Ethernet (FCoE) logs</value>
-  </data>
-  <data name="Description-host.system_status-message-switch" xml:space="preserve">
-    <value>Logs of messages exchanged between system deamons</value>
-  </data>
-  <data name="Description-host.system_status-xenvm" xml:space="preserve">
-    <value>Volume manager logs</value>
-  </data>
-  <data name="Label-host.system_status-control-slice" xml:space="preserve">
-    <value>Control group statistics</value>
-  </data>
-  <data name="Label-host.system_status-fcoe" xml:space="preserve">
-    <value>FCoE logs</value>
-  </data>
-  <data name="Label-host.system_status-message-switch" xml:space="preserve">
-    <value>Internal message logs</value>
-  </data>
-  <data name="Label-host.system_status-xenvm" xml:space="preserve">
-    <value>Volume manager logs</value>
-  </data>
-  <data name="Label-host.edition-premium" xml:space="preserve">
-    <value>[Citrix XenServer] Ultimate Edition</value>
-  </data>
-  <data name="Label-host.edition-basic" xml:space="preserve">
-    <value>[Citrix XenServer] Basic Edition</value>
-  </data>
-  <data name="Label-host.system_status-xscontainer" xml:space="preserve">
-    <value>Container management logs</value>
-  </data>
-  <data name="Description-host.system_status-conntest" xml:space="preserve">
-    <value>Tests for connectivity between the server and the internet</value>
-  </data>
-  <data name="Label-host.system_status-conntest" xml:space="preserve">
-    <value>Connection test</value>
-  </data>
-  <data name="Label-host.edition-standard" xml:space="preserve">
-    <value>[Citrix XenServer] Standard Edition</value>
-  </data>
-  <data name="Label-Pool_patch.required-updates" xml:space="preserve">
-    <value>Required Updates</value>
-  </data>
-  <data name="Label-SR.SRTypes-nutanix" xml:space="preserve">
-    <value>Nutanix</value>
-  </data>
-  <data name="Label-SR.SRTypes-nutanixiso" xml:space="preserve">
-    <value>Nutanix ISO</value>
-  </data>
-  <data name="Message.name-pvs_proxy_setup_failed" xml:space="preserve">
-    <value>PVS proxy setup failed</value>
-  </data>
-  <data name="Message.name-pvs_proxy_no_cache_sr_available" xml:space="preserve">
-    <value>No cache storage available for PVS site</value>
-  </data>
-  <data name="Message.body-pvs_proxy_no_cache_sr_available" xml:space="preserve">
-    <value>Unable to setup PVS-Accelerator on VM '{0}'. No cache storage found on site '{1}'.</value>
-  </data>
-  <data name="Label-performance.pvsaccelerator_evicted" xml:space="preserve">
-    <value>PVS-Accelerator eviction rate</value>
-  </data>
-  <data name="Label-performance.pvsaccelerator_read_hits" xml:space="preserve">
-    <value>PVS-Accelerator hit rate</value>
-  </data>
-  <data name="Label-performance.pvsaccelerator_read_misses" xml:space="preserve">
-    <value>PVS-Accelerator miss rate</value>
-  </data>
-  <data name="Label-performance.pvsaccelerator_read_total" xml:space="preserve">
-    <value>PVS-Accelerator observed read rate</value>
-  </data>
-  <data name="Label-performance.pvsaccelerator_space_utilization" xml:space="preserve">
-    <value>PVS-Accelerator space utilization</value>
-  </data>
-  <data name="Label-performance.pvsaccelerator_traffic_client_sent" xml:space="preserve">
-    <value>PVS-Accelerator observed network traffic from clients</value>
-  </data>
-  <data name="Label-performance.pvsaccelerator_traffic_proxy_saved" xml:space="preserve">
-    <value>PVS-Accelerator saved network traffic</value>
-  </data>
-  <data name="Label-performance.pvsaccelerator_traffic_server_sent" xml:space="preserve">
-    <value>PVS-Accelerator observed network traffic from servers</value>
-  </data>
-  <data name="Label-VM.pvs_read_caching_status" xml:space="preserve">
-    <value>PVS-Accelerator status</value>
-  </data>
-  <data name="Label-performance.sr_rw_read" xml:space="preserve">
-    <value>'{0}' Read Throughput</value>
-  </data>
-  <data name="Label-performance.sr_rw_read_latency" xml:space="preserve">
-    <value>'{0}' Read Latency</value>
-  </data>
-  <data name="Label-performance.sr_rw_write" xml:space="preserve">
-    <value>'{0}' Write Throughput</value>
-  </data>
-  <data name="Label-performance.sr_rw_write_latency" xml:space="preserve">
-    <value>'{0}' Write Latency</value>
-  </data>
-  <data name="Label-pvsaccelerator" xml:space="preserve">
-    <value>PVS-Accelerator</value>
-  </data>
-  <data name="Label-xenserver-measured-boot" xml:space="preserve">
-    <value>Measured Boot</value>
-  </data>
-  <data name="Label-xscontainer" xml:space="preserve">
-    <value>Container Management</value>
-  </data>
-  <data name="Description-host.system_status-xspvscache" xml:space="preserve">
-    <value>PVS-Accelerator Status</value>
-  </data>
-  <data name="Label-host.system_status-xspvscache" xml:space="preserve">
-    <value>PVS-Accelerator Status</value>
-  </data>
-  <data name="Description-host.system_status-VM-snapshot-schedule" xml:space="preserve">
-    <value>Scheduled snapshots log files</value>
-  </data>
-  <data name="Label-host.system_status-VM-snapshot-schedule" xml:space="preserve">
-    <value>Scheduled snapshots log files</value>
-  </data>
-  <data name="Message.action-pbd_plug_failed_on_server_start" xml:space="preserve">
-    <value>Repair Storage</value>
-  </data>
-  <data name="Label-SR.SRTypes-gfs2" xml:space="preserve">
-    <value>GFS2</value>
-  </data>
-  <data name="Label-host.edition-desktop-cloud" xml:space="preserve">
-    <value>[Citrix] Virtual Apps and Desktops [Citrix] Cloud</value>
   </data>
 </root>
